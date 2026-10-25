@@ -182,7 +182,9 @@ function hbar(id, labels, values, hover, leftMargin) {
 }
 
 function titleCase(s) {
-  return s.toLowerCase().replace(/(^|[\s\-'(/])([a-z])/g, (m, a, b) => a + b.toUpperCase());
+  return s.toLowerCase()
+    .replace(/(^|[\s\-'(/])([a-z])/g, (m, a, b) => a + b.toUpperCase())
+    .replace("Mccowan", "McCowan");
 }
 
 function renderLines() {
@@ -199,7 +201,7 @@ function renderStations() {
   document.getElementById("t-stations").textContent =
     `${titleCase(rows[0].station)} leads with ${fmt(rows[0].delay_hours)} hours. Delays are spread out, though: the top 10 stations make up under a third of station delay time.`;
   hbar("c-stations", rows.map((r) => titleCase(r.station)), rows.map((r) => r.delay_hours),
-       rows.map((r) => `${fmt(r.incidents)} incidents`), 150);
+       rows.map((r) => `${fmt(r.incidents)} incidents`), 200);
 }
 
 function renderCauses() {
