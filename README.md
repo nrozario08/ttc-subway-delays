@@ -6,11 +6,13 @@ An analysis of Toronto subway delays from January 2019 to August 2026, built on 
 
 ## Why this project
 
-Anyone who rides the TTC knows the announcement: "we are experiencing a delay." What riders rarely see is the pattern behind it. Is it worse in the morning rush or at the start of service? Does winter really make it worse? Are some stations always the problem, and are delays caused by equipment failures or by something else entirely?
+Over the summer I was living and working in Toronto, and the delays on my commute were inconsistent. Some days the trip took its usual time, and other days it ran well over, which made it hard to time my departure to and from work. I either left too early and waited around, or left on time and arrived late.
 
-The City of Toronto publishes a log of every subway delay, but it comes as a stack of yearly spreadsheets with inconsistent line names, hundreds of station spellings, and delay codes that need a separate lookup table. Nobody can answer those questions from the raw files as they are.
+That raised a few questions. Are delays worse in the morning rush or at the start of service? Does winter really make things worse? Are certain stations or lines the problem, and are delays caused by equipment failures or by something else entirely?
 
-This project turns that log into something usable. It cleans seven years of records in SQL, answers the questions above with queries anyone can re-run, and presents the results in a dashboard that someone without a SQL background can read.
+The City of Toronto publishes a log of every subway delay, but it comes as a stack of yearly spreadsheets with inconsistent line names, hundreds of station spellings, and delay codes that need a separate lookup table, so those questions can't be answered from the raw files as they are.
+
+This project turns that log into something usable. It cleans seven years of records in SQL, answers those questions with queries anyone can re-run, and presents the results in a dashboard that someone without a SQL background can read.
 
 ## Data
 
