@@ -48,8 +48,10 @@ def load_codes():
     codes = pd.concat([new, sub, srt], ignore_index=True).dropna()
     codes["code"] = codes["code"].astype(str).str.strip().str.upper()
     codes["description"] = codes["description"].astype(str).str.strip().str.upper()
-    # the old workbook has stray "Â" characters from a bad encoding, drop them
-    codes["description"] = codes["description"].str.replace("Â", "", regex=False)
+    # the old workbook has mangled dashes/quotes (an en dash comes through as "Â" plus
+    # two control characters). Turn the dashes back into "-" and drop the rest.
+    codes["description"] = codes["description"].str.replace("Â\x80\x93", "-", regex=False)
+    codes["description"] = codes["description"].str.replace(r"[Â\x80-\x9f]", "", regex=True)
     codes["description"] = codes["description"].str.replace(r"\s+", " ", regex=True).str.strip()
     return codes.drop_duplicates(subset="code", keep="first")
 
