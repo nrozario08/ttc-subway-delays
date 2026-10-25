@@ -2,7 +2,9 @@
 
 An analysis of Toronto subway delays from January 2019 to August 2026, built on the City of Toronto's open data. The raw files are loaded into SQLite, cleaned and analysed in SQL, and summarised in an interactive dashboard.
 
-**Dashboard:** open `docs/index.html` in a browser (it runs offline, no server needed).
+**Live dashboard:** https://nrozario08.github.io/ttc-subway-delays/ (also runs offline: open `docs/index.html` in a browser).
+
+[![Dashboard preview](docs/img/dashboard.png)](https://nrozario08.github.io/ttc-subway-delays/)
 
 ## Why this project
 
