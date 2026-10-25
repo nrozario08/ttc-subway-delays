@@ -16,6 +16,8 @@ The City of Toronto publishes a log of every subway delay, but it comes as a sta
 
 This project turns that log into something usable. It cleans seven years of records in SQL, answers those questions with queries anyone can re-run, and presents the results in a dashboard that someone without a SQL background can read.
 
+**Follow-up:** [ttc-delay-prediction](https://github.com/nrozario08/ttc-delay-prediction) builds on this cleaned data to predict which incidents will become major (10+ minute) delays.
+
 ## Data
 
 [TTC Subway Delay Data](https://open.toronto.ca/dataset/ttc-subway-delay-data/) from the City of Toronto Open Data portal: one row per logged incident with date, time, station, line, direction, delay code, minutes of delay and vehicle number. Delay code descriptions come from the portal's code tables.
