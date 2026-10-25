@@ -54,7 +54,9 @@ WITH days AS (
 SELECT
     d.weekday,
     d.hour,
-    ROUND(1.0 * SUM(d.min_delay) / days.n_days, 2) AS avg_minutes
+    -- incidents per day rather than minutes: a handful of storm days
+    -- (ice, snow) inflate the minutes average and hide the normal pattern
+    ROUND(1.0 * COUNT(*) / days.n_days, 2) AS avg_incidents
 FROM delays d
 JOIN days ON days.weekday = d.weekday
 WHERE d.year BETWEEN 2019 AND 2025
