@@ -48,6 +48,9 @@ def load_codes():
     codes = pd.concat([new, sub, srt], ignore_index=True).dropna()
     codes["code"] = codes["code"].astype(str).str.strip().str.upper()
     codes["description"] = codes["description"].astype(str).str.strip().str.upper()
+    # the old workbook has stray "Â" characters from a bad encoding, drop them
+    codes["description"] = codes["description"].str.replace("Â", "", regex=False)
+    codes["description"] = codes["description"].str.replace(r"\s+", " ", regex=True).str.strip()
     return codes.drop_duplicates(subset="code", keep="first")
 
 
@@ -64,7 +67,13 @@ def main():
     with sqlite3.connect(DB_PATH) as con:
         delays.to_sql("delays_raw", con, index=False)
         codes.to_sql("delay_codes", con, index=False)
-    print(f"wrote {len(delays):,} rows to {DB_PATH}")
+        print(f"wrote {len(delays):,} raw rows to {DB_PATH}")
+
+        # cleaning happens in SQL
+        with open(os.path.join("sql", "01_clean.sql")) as f:
+            con.executescript(f.read())
+        n = con.execute("SELECT COUNT(*) FROM delays").fetchone()[0]
+        print(f"delays table: {n:,} rows after cleaning")
 
 
 if __name__ == "__main__":
