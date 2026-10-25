@@ -21,6 +21,8 @@ FILES = [
     ("delays_2024.xlsx", "2ee1a65c-da06-4ad1-bdfb-b1a57701e46a/download/ttc-subway-delay-2024.xlsx"),
     ("delays_2025_on.csv", "0b6e5c52-e993-46d6-8d74-8602ee224457/download/ttc-subway-delay-data-since-2025.csv"),
     ("delay_codes.csv", "b2d8f5e0-0997-46b5-8abd-caa685a0290b/download/code-descriptions.csv"),
+    # older workbook, has the subway + SRT code lists that the csv above is missing
+    ("delay_codes_old.xlsx", "3900e649-f31e-4b79-9f20-4731bbfd94f7/download/ttc-subway-delay-codes.xlsx"),
 ]
 
 OUT_DIR = os.path.join("data", "raw")

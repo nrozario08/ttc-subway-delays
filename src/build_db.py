@@ -35,14 +35,29 @@ def load_delay_files():
     return pd.concat(frames, ignore_index=True)
 
 
+def load_codes():
+    # the newer csv doesn't cover every code that shows up in the data, so also pull
+    # in the subway and SRT lists from the older workbook (they sit side by side)
+    new = pd.read_csv(os.path.join(RAW_DIR, "delay_codes.csv")).drop(columns=["_id"], errors="ignore")
+    new.columns = [c.lower() for c in new.columns]
+
+    old = pd.read_excel(os.path.join(RAW_DIR, "delay_codes_old.xlsx"), header=None, skiprows=2)
+    sub = old[[2, 3]].set_axis(["code", "description"], axis=1)
+    srt = old[[6, 7]].set_axis(["code", "description"], axis=1)
+
+    codes = pd.concat([new, sub, srt], ignore_index=True).dropna()
+    codes["code"] = codes["code"].astype(str).str.strip().str.upper()
+    codes["description"] = codes["description"].astype(str).str.strip().str.upper()
+    return codes.drop_duplicates(subset="code", keep="first")
+
+
 def main():
     delays = load_delay_files()
 
     # dates come through as timestamps in the excel files and strings in the csv
     delays["Date"] = pd.to_datetime(delays["Date"], errors="coerce").dt.strftime("%Y-%m-%d")
 
-    codes = pd.read_csv(os.path.join(RAW_DIR, "delay_codes.csv")).drop(columns=["_id"], errors="ignore")
-    codes.columns = [c.lower() for c in codes.columns]
+    codes = load_codes()
 
     if os.path.exists(DB_PATH):
         os.remove(DB_PATH)
